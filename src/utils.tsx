@@ -36,3 +36,7 @@ export function createCopyBtn({
 
   dom.appendChild(copyBtn);
 }
+
+export const sleep = async (timeout: number) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
