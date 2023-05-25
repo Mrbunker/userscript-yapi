@@ -1,3 +1,2 @@
 ### !todo
-- bodyTableContent
-- copy only hover
+- success feedback

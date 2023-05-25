@@ -1,4 +1,4 @@
-import { createCopyBtn, sleep } from "./utils";
+import { convertTable, createCopyBtn, createHiddenBtn, sleep } from "./utils";
 import "./style.css";
 
 const main = () => {
@@ -7,12 +7,17 @@ const main = () => {
     throw new Error("bodyTable element not found");
   }
 
-  const bodyTableContent = "还没写😢";
-  createCopyBtn({ dom: bodyTable, btnName: "复制 Body 参数", targetStr: bodyTableContent });
+  const bodyTableContent = convertTable(bodyTable);
+  const className = "bodyTd-copy";
+  createCopyBtn({ dom: bodyTable, btnName: "复制为 TS interface", targetStr: bodyTableContent });
+  createHiddenBtn({ dom: bodyTable, hiddenClassName: className });
+
   const nameTds = bodyTable.querySelectorAll<HTMLElement>("tbody>tr>td:nth-child(1)");
   const remarkTds = bodyTable.querySelectorAll<HTMLElement>("tbody>tr>td:nth-child(5)");
-
-  [...nameTds, ...remarkTds].forEach((item) => createCopyBtn({ dom: item }));
+  const bodyTableTds = [...nameTds, ...remarkTds];
+  bodyTableTds.forEach((item) =>
+    createCopyBtn({ dom: item, btnClassName: className, visible: false }),
+  );
 
   /** 是否已添加按钮 */
   let copyBtnAdded = false;
